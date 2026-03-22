@@ -459,7 +459,7 @@
 
 <script>
 // ════════════════════════════════════════════
-//  SENSOR DEFINITIONS  (ported from Thermocouple.java)
+//  SENSOR DEFINITIONS
 // ════════════════════════════════════════════
 const SENSORS = {
   PT_385: { A: 3.9083e-3, B: -5.775e-7, C: -4.183e-12, D: 0, tMin: -200, tMax: 540, kind: 'PT' },
@@ -478,7 +478,7 @@ let rangeData = { PLATINUM: [], NICKEL: [], COPPER: [] };
 // Chart instances
 let charts = {};
 
-// ── R(T) formula (exact port from Thermocouple.java) ──
+// ── R(T) formula ──
 function temperatureToResistance(sensorKey, t, r0) {
   const s = SENSORS[sensorKey];
   const { A, B, C, D } = s;
