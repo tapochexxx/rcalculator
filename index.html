@@ -478,7 +478,7 @@ let rangeData = { PLATINUM: [], NICKEL: [], COPPER: [] };
 // Chart instances
 let charts = {};
 
-// ── R(T) formula (exact port from Thermocouple.java) ──
+// ── R(T) formula ──
 function temperatureToResistance(sensorKey, t, r0) {
   const s = SENSORS[sensorKey];
   const { A, B, C, D } = s;
@@ -711,7 +711,7 @@ function updateChartStatus(tab, rows, tStart, tEnd) {
 }
 
 // ════════════════════════════════════════════
-//  CSV EXPORT  (ported from saveResultsToCSV)
+//  CSV EXPORT
 // ════════════════════════════════════════════
 function saveCSV(tab) {
   const rows = rangeData[tab];
@@ -731,10 +731,12 @@ function saveCSV(tab) {
   const fmt = v => v.toFixed(3).replace('.', ',');
   const fmtE = v => v.toExponential(4).replace('.', ',');
 
+  const typeLabel = (tab === 'NICKEL') ? 'N' + String(r0).replace('.', ',') : key;
+
   let csv = `РЕЗУЛЬТАТЫ РАСЧЕТА R(T) - ${names[tab]}\r\n\r\n`;
   csv += `Параметры датчика\r\n`;
-  csv += `Тип;${key}\r\n`;
-  csv += `R0;${String(r0).replace('.', ',')}\r\n`;
+  csv += `Тип;${typeLabel}\r\n`;
+  csv += `R;${String(r0).replace('.', ',')}\r\n`;
   csv += `Диапазон;${tStart} - ${tEnd} °C\r\n`;
   csv += `Шаг;${tStep} °C\r\n\r\n`;
   csv += `Коэффициенты\r\n`;
