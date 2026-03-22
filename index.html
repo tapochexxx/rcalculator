@@ -735,13 +735,13 @@ function saveCSV(tab) {
   const typeLabel = (tab === 'NICKEL') ? 'N' + r0 : key;
 
   let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Лист1</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>`;
-  html += `<tr><td>РЕЗУЛЬТАТЫ РАСЧЕТА R(T) - ${names[tab]}</td></tr>`;
+  html += `<tr><td>РЕЗУЛЬТАТЫ РАСЧЕТА R(T) - </td><td> ${names[tab]}</td></tr>`;
   html += `<tr></tr>`;
   html += `<tr><td>Параметры датчика</td></tr>`;
   html += `<tr><td>Тип</td><td>${typeLabel}</td></tr>`;
   html += `<tr><td>R</td><td>${r0}</td></tr>`;
   html += `<tr><td>Диапазон</td><td>${tStart} - ${tEnd} °C</td></tr>`;
-  html += `<tr><td>Шаг</td><td>${tStep} °C</td></tr>`;
+  html += `<tr><td>Шаг</td><td>${tStep}</td></tr>`;
   html += `<tr></tr>`;
   html += `<tr><td>Коэффициенты</td></tr>`;
   coeffs.forEach((c, i) => { if (c !== 0 || i < 2) html += `<tr><td>${letters[i]}</td><td>${fmtE(c)}</td></tr>`; });
