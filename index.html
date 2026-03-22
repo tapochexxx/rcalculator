@@ -8,20 +8,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
-    --bg:        #0f1117;
-    --surface:   #181c27;
-    --surface2:  #1f2436;
-    --border:    #2a3050;
-    --accent:    #3d8ef0;
-    --accent2:   #5ba8ff;
-    --success:   #34c98a;
-    --warning:   #f0a030;
-    --text:      #e8eaf2;
-    --muted:     #7a84a0;
-    --input-bg:  #141824;
-    --pt-color:  #3d8ef0;
-    --ni-color:  #f07a3d;
-    --cu-color:  #34c98a;
+    --bg:        #f4f5f7;
+    --surface:   #ffffff;
+    --surface2:  #f0f1f3;
+    --border:    #d0d5dd;
+    --accent:    #1a6fc4;
+    --accent2:   #1a6fc4;
+    --success:   #1a8a50;
+    --warning:   #c0620a;
+    --text:      #1a1d23;
+    --muted:     #6b7280;
+    --input-bg:  #ffffff;
+    --pt-color:  #1a6fc4;
+    --ni-color:  #c05c1a;
+    --cu-color:  #1a8a50;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -108,6 +108,9 @@
     text-transform: uppercase; letter-spacing: 0.12em;
     color: var(--muted);
     margin-bottom: 16px;
+  }
+  .card-title.section-title {
+    margin-top: 22px;
   }
 
   /* ── SENSOR PANEL (top) ── */
@@ -228,14 +231,13 @@
 <header>
   <div class="logo-icon">R(T)</div>
   <h1>Калькулятор термометров сопротивления</h1>
-  <span class="subtitle">RTD Calculator</span>
 </header>
 
 <!-- SENSOR TABS -->
 <div class="sensor-tabs">
-  <button class="sensor-tab active" data-sensor="PLATINUM" onclick="switchSensor('PLATINUM')">⬡ Платина</button>
-  <button class="sensor-tab" data-sensor="NICKEL"   onclick="switchSensor('NICKEL')">◈ Никель</button>
-  <button class="sensor-tab" data-sensor="COPPER"   onclick="switchSensor('COPPER')">◉ Медь</button>
+  <button class="sensor-tab active" data-sensor="PLATINUM" onclick="switchSensor('PLATINUM')">Платина</button>
+  <button class="sensor-tab" data-sensor="NICKEL"   onclick="switchSensor('NICKEL')">Никель</button>
+  <button class="sensor-tab" data-sensor="COPPER"   onclick="switchSensor('COPPER')">Медь</button>
 </div>
 
 <main>
@@ -270,7 +272,7 @@
       <div class="inner-pane active" id="PLATINUM-calc" style="padding:0 24px 24px;">
         <!-- single -->
         <div>
-          <div class="card-title">Одиночный расчёт R(T)</div>
+          <div class="card-title section-title">Одиночный расчёт R(T)</div>
           <div class="single-calc-row">
             <div class="field-group">
               <label>ТЕМПЕРАТУРА T (°C)</label>
@@ -344,7 +346,7 @@
       </div>
       <div class="inner-pane active" id="NICKEL-calc" style="padding:0 24px 24px;">
         <div>
-          <div class="card-title">Одиночный расчёт R(T)</div>
+          <div class="card-title section-title">Одиночный расчёт R(T)</div>
           <div class="single-calc-row">
             <div class="field-group">
               <label>ТЕМПЕРАТУРА T (°C)</label>
@@ -412,7 +414,7 @@
       </div>
       <div class="inner-pane active" id="COPPER-calc" style="padding:0 24px 24px;">
         <div>
-          <div class="card-title">Одиночный расчёт R(T)</div>
+          <div class="card-title section-title">Одиночный расчёт R(T)</div>
           <div class="single-calc-row">
             <div class="field-group">
               <label>ТЕМПЕРАТУРА T (°C)</label>
@@ -670,11 +672,11 @@ function renderChart(tab) {
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1f2436',
-          borderColor: '#2a3050',
+          backgroundColor: '#ffffff',
+          borderColor: '#d0d5dd',
           borderWidth: 1,
-          titleColor: '#7a84a0',
-          bodyColor: '#e8eaf2',
+          titleColor: '#6b7280',
+          bodyColor: '#1a1d23',
           titleFont: { family: 'JetBrains Mono', size: 11 },
           bodyFont:  { family: 'JetBrains Mono', size: 12 },
           callbacks: {
@@ -686,14 +688,14 @@ function renderChart(tab) {
       scales: {
         x: {
           type: 'linear',
-          title: { display: true, text: 'T, °C', color: '#7a84a0', font: { family: 'JetBrains Mono', size: 12 } },
-          grid:  { color: '#2a3050' },
-          ticks: { color: '#7a84a0', font: { family: 'JetBrains Mono', size: 11 } }
+          title: { display: true, text: 'T, °C', color: '#6b7280', font: { family: 'JetBrains Mono', size: 12 } },
+          grid:  { color: '#e5e7eb' },
+          ticks: { color: '#6b7280', font: { family: 'JetBrains Mono', size: 11 } }
         },
         y: {
-          title: { display: true, text: 'R, Ом', color: '#7a84a0', font: { family: 'JetBrains Mono', size: 12 } },
-          grid:  { color: '#2a3050' },
-          ticks: { color: '#7a84a0', font: { family: 'JetBrains Mono', size: 11 } }
+          title: { display: true, text: 'R, Ом', color: '#6b7280', font: { family: 'JetBrains Mono', size: 12 } },
+          grid:  { color: '#e5e7eb' },
+          ticks: { color: '#6b7280', font: { family: 'JetBrains Mono', size: 11 } }
         }
       }
     }
