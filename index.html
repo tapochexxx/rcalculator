@@ -735,14 +735,14 @@ function saveCSV(tab) {
 
   let csv = `РЕЗУЛЬТАТЫ РАСЧЕТА R(T) - ${names[tab]}\r\n\r\n`;
   csv += `Параметры датчика\r\n`;
-  csv += `Тип;${typeLabel}\r\n`;
-  csv += `R;${String(r0).replace('.', ',')}\r\n`;
-  csv += `Диапазон;${tStart} - ${tEnd} °C\r\n`;
-  csv += `Шаг;${tStep} °C\r\n\r\n`;
+  csv += `Тип\t${typeLabel}\r\n`;
+  csv += `R\t${String(r0).replace('.', ',')}\r\n`;
+  csv += `Диапазон\t${tStart} - ${tEnd} °C\r\n`;
+  csv += `Шаг\t${tStep} °C\r\n\r\n`;
   csv += `Коэффициенты\r\n`;
-  coeffs.forEach((c, i) => { if (c !== 0 || i < 2) csv += `${letters[i]};${fmtE(c)}\r\n`; });
-  csv += `\r\n№;T, °C;R, Ом\r\n`;
-  rows.forEach((row, i) => { csv += `${i+1};${fmt(row.t)};${fmt(row.r)}\r\n`; });
+  coeffs.forEach((c, i) => { if (c !== 0 || i < 2) csv += `${letters[i]}\t${fmtE(c)}\r\n`; });
+  csv += `\r\n№\tT, °C\tR, Ом\r\n`;
+  rows.forEach((row, i) => { csv += `${i+1}\t${fmt(row.t)}\t${fmt(row.r)}\r\n`; });
 
   const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
   const a    = document.createElement('a');
