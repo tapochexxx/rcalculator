@@ -478,7 +478,7 @@ let rangeData = { PLATINUM: [], NICKEL: [], COPPER: [] };
 // Chart instances
 let charts = {};
 
-// ── R(T) formula ──
+// ── R(T) formula (exact port from Thermocouple.java) ──
 function temperatureToResistance(sensorKey, t, r0) {
   const s = SENSORS[sensorKey];
   const { A, B, C, D } = s;
@@ -728,26 +728,32 @@ function saveCSV(tab) {
   const letters = ['A', 'B', 'C', 'D'];
   const coeffs  = [s.A, s.B, s.C, s.D];
 
-  const fmt = v => v.toFixed(3).replace('.', ',');
+  const fmt  = v => v.toFixed(3).replace('.', ',');
   const fmtE = v => v.toExponential(4).replace('.', ',');
+  const cell = v => `<td>${v}</td>`;
 
-  const typeLabel = (tab === 'NICKEL') ? 'N' + String(r0).replace('.', ',') : key;
+  const typeLabel = (tab === 'NICKEL') ? 'N' + r0 : key;
 
-  let csv = `РЕЗУЛЬТАТЫ РАСЧЕТА R(T) - ${names[tab]}\r\n\r\n`;
-  csv += `Параметры датчика\r\n`;
-  csv += `Тип\t${typeLabel}\r\n`;
-  csv += `R\t${String(r0).replace('.', ',')}\r\n`;
-  csv += `Диапазон\t${tStart} - ${tEnd} °C\r\n`;
-  csv += `Шаг\t${tStep} °C\r\n\r\n`;
-  csv += `Коэффициенты\r\n`;
-  coeffs.forEach((c, i) => { if (c !== 0 || i < 2) csv += `${letters[i]}\t${fmtE(c)}\r\n`; });
-  csv += `\r\n№\tT, °C\tR, Ом\r\n`;
-  rows.forEach((row, i) => { csv += `${i+1}\t${fmt(row.t)}\t${fmt(row.r)}\r\n`; });
+  let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Лист1</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>`;
+  html += `<tr><td>РЕЗУЛЬТАТЫ РАСЧЕТА R(T) - ${names[tab]}</td></tr>`;
+  html += `<tr></tr>`;
+  html += `<tr><td>Параметры датчика</td></tr>`;
+  html += `<tr><td>Тип</td><td>${typeLabel}</td></tr>`;
+  html += `<tr><td>R</td><td>${r0}</td></tr>`;
+  html += `<tr><td>Диапазон</td><td>${tStart} - ${tEnd} °C</td></tr>`;
+  html += `<tr><td>Шаг</td><td>${tStep} °C</td></tr>`;
+  html += `<tr></tr>`;
+  html += `<tr><td>Коэффициенты</td></tr>`;
+  coeffs.forEach((c, i) => { if (c !== 0 || i < 2) html += `<tr><td>${letters[i]}</td><td>${fmtE(c)}</td></tr>`; });
+  html += `<tr></tr>`;
+  html += `<tr><td>№</td><td>T, °C</td><td>R, Ом</td></tr>`;
+  rows.forEach((row, i) => { html += `<tr><td>${i+1}</td><td>${fmt(row.t)}</td><td>${fmt(row.r)}</td></tr>`; });
+  html += `</table></body></html>`;
 
-  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' });
   const a    = document.createElement('a');
   a.href     = URL.createObjectURL(blob);
-  a.download = `${names[tab]}_${key}.csv`;
+  a.download = `${names[tab]}_${key}.xls`;
   a.click();
   URL.revokeObjectURL(a.href);
 }
