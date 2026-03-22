@@ -692,7 +692,8 @@ function renderChart(tab) {
           grid:  { color: '#e5e7eb' },
           ticks: { color: '#6b7280', font: { family: 'JetBrains Mono', size: 11 } },
           min: rows[0].t,
-          max: rows[rows.length-1].t
+          max: rows[rows.length-1].t,
+          afterDataLimits: axis => { axis.min = rows[0].t; axis.max = rows[rows.length - 1].t; }
         },
         y: {
           title: { display: true, text: 'R, Ом', color: '#6b7280', font: { family: 'JetBrains Mono', size: 12 } },
