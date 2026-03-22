@@ -690,7 +690,9 @@ function renderChart(tab) {
           type: 'linear',
           title: { display: true, text: 'T, °C', color: '#6b7280', font: { family: 'JetBrains Mono', size: 12 } },
           grid:  { color: '#e5e7eb' },
-          ticks: { color: '#6b7280', font: { family: 'JetBrains Mono', size: 11 } }
+          ticks: { color: '#6b7280', font: { family: 'JetBrains Mono', size: 11 } },
+          min: rows[0].t,
+          max: rows[rows.length-1].t
         },
         y: {
           title: { display: true, text: 'R, Ом', color: '#6b7280', font: { family: 'JetBrains Mono', size: 12 } },
